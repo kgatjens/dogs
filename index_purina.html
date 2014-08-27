@@ -1,0 +1,43 @@
+<head>
+<head>
+
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+
+<script type="text/javascript">
+
+$( document ).ready(function() {
+    console.log( "ready!" );
+
+    var dog_data = [];
+    if($.urlParam('dogname')!= 0 || $.urlParam('dogname') != null){
+      
+      dog_data['name'] = $.urlParam('dogname');
+      //dog_data['name'] = $.urlParam('dogname');
+      //dog_data['xxx'] = $.urlParam('xxx');
+      console.log( dog_data );
+    }
+
+  });
+
+$.urlParam = function(name){
+    var results = null;
+    results = new RegExp('[\?&amp;]' + name + '=([^&amp;#]*)').exec(window.location.href);
+
+    return results[1] || 0;
+}
+
+
+
+</script>
+
+</head>
+<body>
+
+
+            <form  action="#" method='get'>
+              Dog name: <input type="text" name="dogname"><br>
+              Age name: <input type="text" name="age"><br>
+              <input type="submit" value="Submit">
+            </form>
+</body>            
+</html>
