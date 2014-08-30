@@ -1,0 +1,274 @@
+
+<html>
+<head>
+
+
+   <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.js"></script>
+   <script type="text/javascript" src="jquery.backstretch.min.js"></script>
+ 
+   <script type="text/javascript" language="javascript">
+
+   $(document).ready(function() {
+      
+    var question = [];
+    question[1] = 0;
+    question[2] = 0;
+    question[3] = 0;
+    question[4] = 0;
+    question[5] = 0;
+
+      for (i = 1; i <= 5; i++) {
+        var yes_answer = ".yes_" + i;
+        var no_answer = ".no_" + i;
+        var next = ".next_" + i;
+       
+          $(yes_answer).on('click', {id: i}, function (e) {    
+            question[e.data.id]=1;
+            a_opacity(this, '.no_'+e.data.id);
+            console.log( "Anwer #: "+ e.data.id + "=="+question[e.data.id]);
+          });
+
+          $(no_answer).on('click', {id: i}, function (e) {
+            question[e.data.id]=0;
+            a_opacity(this, '.yes_'+e.data.id);
+          });
+
+          $(next).on('click', {id: i}, function (e) {
+             var nextBox = parseInt(e.data.id); 
+             nextBox = nextBox + 1;
+
+              $(".box"+e.data.id).slideUp("slow");
+              $(".box"+nextBox).show("slow"); 
+
+          });
+      }
+    
+      function a_opacity(answer, other_answer) {
+          $(answer).css({'filter':'alpha(opacity=60)', 'zoom':'1', 'opacity':'0.6'});
+          $(other_answer).css({'filter':'alpha(opacity=0)', 'zoom':'1', 'opacity':'1'});
+      }
+
+      //tester function
+      $(".total").bind('click',function () {
+           for (i = 1; i <= 5; i++) {
+              console.log("A: "+question[i]);
+           }
+      });
+
+
+  });
+ 
+   </script>
+
+   <style type="text/css">
+    body{
+      margin: 0;
+      padding: 0;
+      border: 0;
+      background-color: black;
+    }
+
+    .dog_box{
+      margin-left:0px;
+      width:100%;      
+      background-size: 100%;
+      background-repeat:no-repeat;
+      /*min-height:768px;*/
+      min-width:1024;
+    }
+    
+    .box_content{
+      position:absolute;
+      top:40%;
+      left:10%;
+      margin:auto;
+      width:80%;
+      height:90%;
+      /*background-color:#ccc;*/
+      text-align: center;
+    }
+
+    .box_content_home{
+      position:absolute;
+      top:60%;
+      left:5%;
+      margin:auto;
+      width:90%;
+      height:40%;
+      /*background-color:red;*/
+    }
+
+    .total{
+      margin-top:5px;
+      color:red;
+    }
+
+    .box_content_home .main_text{
+      width: 90%;
+      text-align: center;
+      margin-left:5%;
+    }
+
+
+    .top_space{
+      margin-top:10%;
+    }
+    /*Fonts*/
+    @font-face {
+      font-family: 'Antenna-ExtraLight';
+      font-style: normal;
+      font-weight: normal;
+      src: url('fonts/Antenna-ExtraLight.otf');
+    }
+
+     @font-face {
+      font-family: 'Antenna-Regular';
+      font-style: normal;
+      font-weight: normal;
+      src: url('fonts/Antenna-Regular.otf');
+    }
+
+    .box_content_home h1{
+      font-family: 'Antenna-ExtraLight';
+      font-size: 38px;
+      color:white;
+    }
+
+    h1{
+      font-family: 'Antenna-ExtraLight';
+      font-size: 42px;
+      color:#fff;
+      text-transform: uppercase;
+    }
+
+    h2{
+      font-family: 'Antenna-Regular';
+      font-size: 45px;
+      color:#fff;
+      opacity: 0.5;
+      text-transform: uppercase;
+    }
+
+     h2 span{
+      font-family: 'Antenna-ExtraLight';
+      font-size: 75px;
+     }
+
+    .box_content_home span{
+      font-family: 'Antenna-ExtraLight';
+      font-size: 38px;
+      color:#64ae05;
+    }
+
+    p{
+      font-family: 'Antenna-ExtraLight';
+      font-size: 12px;
+      color:white;
+    }
+
+    a{
+      text-decoration: none;
+    }
+
+    a p{
+      position:relative;
+      bottom: 7px;
+      
+    }
+
+   
+
+   </style>
+
+
+</head>
+<body>
+ 
+   <div class="dog box1" style="display:nwone;" > 
+    <img class="dog_box" src="images/dog_1.jpg" />     
+      <div class='box_content_home'>
+        <h1>ARE YOUR <span>#DOGPROBLEMS</span> REAL PROBLEMS? </h1>
+        <div class="main_text">
+           <p>Food intolerance and food allergies are reactions to a food or ingredient that is normally considered harmless. In people, allergic reactions can be caused by foods such as shellfish or peanuts. In pets, a common protein, such as beef or dairy, is often the trigger. </p><br> 
+            <p>Talk to your veterinarian if your dog exhibits any of the following signs.</p><br>       
+          
+            <a href='#' class='next_1'> <img src='images/checklist.png' /></a><br><br>
+            <a href="#"> <img src='images/printer_icon.png' /><p style="display:inline;"> Print standard sign checklist</p> </a>
+        </div>
+      </div>
+   </div>
+
+   <div class="dog box2" style="display:none;">
+     <img class="dog_box" src="images/dog_2.jpg" />     
+        <div class='box_content'>
+          <h1>Does your dog have excessive gas?</h1> 
+          <h2>
+            <a href='#' class='yes_2'>Yes</a><span>|</span>
+            <a href='#' class='no_2'> No</a>
+          </h2>
+          
+          <p class="top_space" >1/5</p>
+          <a href='#' class='next_2'> <img src='images/next.png' /></a>
+        </div>  
+   </div>
+
+    <div class="dog box3" style="display:none;">   
+      <img class="dog_box" src="images/dog_3.jpg" />     
+        <div class='box_content'>
+          <h1>Does your pet vomit frequently?</h1>
+          <h2>
+            <a href='#' class='yes_3'>Yes</a><span>|</span>
+            <a href='#' class='no_3'> No</a>
+          </h2>
+          
+          <p class="top_space" >2/5</p>    
+          <a href='#' class='next_3'> <img src='images/next.png' /></a>
+        </div>
+   </div>
+
+    <div class="dog box4" style="display:none;">   
+      <img class="dog_box" src="images/dog_4.jpg" />     
+        <div class='box_content'>
+          <h1>Do you find your pet itching and scratching year-round?</h1>
+          <h2>
+            <a href='#' class='yes_4'> Yes</a><span>|</span>
+            <a href='#' class='no_4'> No</a> 
+          </h2>  
+          <p class="top_space" >3/5</p>          
+          <a href='#' class='next_4'> <img src='images/next.png' /></a>
+        </div>
+   </div>
+
+    <div class="dog box5" style="display:none;">   
+      <img class="dog_box" src="images/dog_5.jpg" />     
+        <div class='box_content'>
+        <h1>Is your pet plagued by chronic and recurring ear infections?</h1>
+        <h2>
+          <a href='#' class='yes_5'> Yes</a><span>|</span>
+          <a href='#' class='no_5'> No</a>
+        </h2>   
+          <p class="top_space" >4/5<p>      
+          <a href='#' class='next_5'><img src='images/next.png' /></a>
+        </div>
+   </div>
+
+   <div class="dog box6" style="display:none;">   
+      <img class="dog_box" src="images/dog_6.jpg" />     
+        <div class='box_content'>
+          <h1>Does your PET frequently suffer from diarrhea?</h1>
+          <h2>
+            <a href='#' class='yes_6'> Yes</a><span>|</span>
+            <a href='#' class='no_6'> No</a>
+          </h2>
+          <p class="top_space" >5/5<p>      
+          <a href='#' class='next_6'><img src='images/next.png' /></a>
+        </div>
+   </div>
+
+    <div id="test" style="margin-top:5px;">
+    <a href='#' class='total'> total</a>
+    </div>
+
+
+</body>
+</html>
