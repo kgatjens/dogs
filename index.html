@@ -26,6 +26,14 @@
     symptoms[5] = 'CHRONIC EAR INFECTIONS';
     symptoms[6] = 'FREQUENT DIARRHEA';
 
+      $("#main_form input[type='submit']").on("click", function(e) {
+            alert("hola");
+      }); 
+
+      $("#main_form").delegate("input[type=submit]", "click", function() {
+          alert("clicked!");
+      });
+
       for (i = 1; i <= 7; i++) {
         var yes_answer = ".yes_" + i;
         var no_answer = ".no_" + i;
@@ -41,6 +49,8 @@
             question[e.data.id]=0;
             a_opacity(this, '.yes_'+e.data.id);
           });
+            
+          var present_symptoms = "";
 
           $(next).on('click', {id: i}, function (e) {
              var nextBox = parseInt(e.data.id); 
@@ -52,7 +62,6 @@
               if(nextBox==7){//result page
                 console.log('7');
                   //#shadowBox .list li
-                  console.log('acá');
                   var cList = $('#listS');
                   for (i in question){ 
                   console.log(question[i]);             
@@ -60,14 +69,19 @@
                       cList.append("<li  class='opacity'>" + symptoms[i] + "</li>");
                     }else{
                       cList.append("<li>" + symptoms[i] + "</li>");
+                      present_symptoms =  symptoms[i] + ", " + present_symptoms ;
                     }
                   }
+
+                  console.log(present_symptoms);
+                  console.log(" Present symptoms");
+                  $( ".s3" ).val( present_symptoms );
+
               }
           });
       }
 
-      var dog_data = [];
-      
+      var dog_data = [];      
       var url = window.location.href;
       var params = url.split("?")[1].split("&");
 
@@ -81,13 +95,13 @@
         dog_data['symptoms']  = params[3].replace("symptoms=", "");
         dog_data['duration']  = params[4].replace("duration=", "");
         dog_data['diet']      = params[5].replace("diet=", "");
-        dog_data['printit']    = params[5].replace("printit=", "");
+        dog_data['printit']   = params[5].replace("printit=", "");
 
         if(dog_data['printit']!=null && dog_data['printit'] == 'true'){
+          console.log( "we are goint to print now!" );
           printMe();
         }
         console.log( dog_data );
-
       }
 
       function a_opacity(answer, other_answer) {
@@ -95,7 +109,7 @@
           $(other_answer).css({'filter':'alpha(opacity=0)', 'zoom':'1', 'opacity':'1'});
       }
 
-
+       
 
       //tester function
       $(".total").bind('click',function () {
@@ -104,9 +118,9 @@
                 console.log("A: "+question[i]);
              }
 
-             console.log(" %333%$$%%$$%%");  
+             
            
-          var url = window.location.href;
+            var url = window.location.href;
             var params = url.split("?")[1].split("&");
             
             dog_data['name']      = params[0].replace("name=", "");
@@ -120,21 +134,27 @@
             console.log(dog_data);
 
             question[3]=1;
+            var present_symptoms = "";
             for (i in question){              
                 if(question[i]==0){
                   cList.append("<li  class='opacity'>" + symptoms[i] + "</li>");
                 }else{
                   cList.append("<li>" + symptoms[i] + "</li>");
+                  present_symptoms = present_symptoms + ", " +symptoms[i];
                 }
             }
+            console.log(present_symptoms);
+
+            console.log(" Present symptoms");
+            $( ".s3" ).val( present_symptoms ); 
+
       });
 
   });
 
       function printMe(render) {
-        return xepOnline.Formatter.Format('print_me_standart',{pageMargin:'0.5in'});
-            console.log( "  ## printing..." );
-
+        console.log( "  ## printing..." );
+        return xepOnline.Formatter.Format('print_me_standart',{pageMargin:'0.5in'});           
       }
 
 
@@ -325,6 +345,10 @@
       font-size: 75px;
      }
 
+    h2 a{
+      color:#fff;
+    }
+
     h3{
       font-family: 'Antenna-ExtraLight';
       font-size: 22px;
@@ -397,8 +421,8 @@
         <div class='box_content'>
           <h1>Does your dog have excessive gas?</h1> 
           <h2>
-            <a href='#' class='yes_2'>Yes</a><span>|</span>
-            <a href='#' class='no_2'> No</a>
+            <a href='#' class='yes_2'>Yes </a><span>|</span>
+            <a href='#' class='no_2'>No</a>
           </h2>
           
           <p class="top_space" >1/5</p>
@@ -411,8 +435,8 @@
         <div class='box_content'>
           <h1>Does your pet vomit frequently?</h1>
           <h2>
-            <a href='#' class='yes_3'>Yes</a><span>|</span>
-            <a href='#' class='no_3'> No</a>
+            <a href='#' class='yes_3'>Yes </a><span>|</span>
+            <a href='#' class='no_3'>No</a>
           </h2>
           
           <p class="top_space" >2/5</p>    
@@ -425,8 +449,8 @@
         <div class='box_content'>
           <h1>Do you find your pet itching and scratching year-round?</h1>
           <h2>
-            <a href='#' class='yes_4'> Yes</a><span>|</span>
-            <a href='#' class='no_4'> No</a> 
+            <a href='#' class='yes_4'>Yes </a><span>|</span>
+            <a href='#' class='no_4'>No</a> 
           </h2>  
           <p class="top_space" >3/5</p>          
           <a href='#' class='next_4'> <img src='images/next.png' /></a>
@@ -438,8 +462,8 @@
         <div class='box_content'>
         <h1>Is your pet plagued by chronic and recurring ear infections?</h1>
         <h2>
-          <a href='#' class='yes_5'> Yes</a><span>|</span>
-          <a href='#' class='no_5'> No</a>
+          <a href='#' class='yes_5'>Yes </a><span>|</span>
+          <a href='#' class='no_5'>No</a>
         </h2>   
           <p class="top_space" >4/5<p>      
           <a href='#' class='next_5'><img src='images/next.png' /></a>
@@ -451,8 +475,8 @@
         <div class='box_content'>
           <h1>Does your PET frequently suffer from diarrhea?</h1>
           <h2>
-            <a href='#' class='yes_6'> Yes</a><span>|</span>
-            <a href='#' class='no_6'> No</a>
+            <a href='#' class='yes_6'>Yes </a><span>|</span>
+            <a href='#' class='no_6'>No</a>
           </h2>
           <p class="top_space" >5/5<p>      
           <a href='#' class='next_6'><img src='images/next.png' /></a>
@@ -486,11 +510,11 @@
           <div id="shadowBox" >
             <h3>Personalize Your Pet's sign Checklist</h3>
             <div id="dog_form">            
-              <form  action="#" method='get'>
+              <form id="main_form"  action="#" method='get'>
                 <input class="s1" placeholder="Name" type="text" name="name">
                 <input class="s1" placeholder="Breed" type="text" name="breed">
                 <input class="s2" placeholder="Age" type="text" name="age">
-                <input class="s3" placeholder="Symptoms" type="text" name="symptoms">
+                <input class="s3" placeholder="Symptoms" type="text" name="symptoms"> 
                 <input class="s5" placeholder="Approximate Duration of Symptoms" type="text" name="duration"><br>
                 <input class="s4" placeholder="Current Diet" name="diet">
                 <input type="hidden" name="printit" value="true">
