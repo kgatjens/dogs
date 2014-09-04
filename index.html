@@ -1,11 +1,14 @@
 
-<html>
+<html xmlns="http://www.w3.org/1999/xhtml">
 <head>
+
+  <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+  <title>#dogproblems? - Purina</title>
 
 
    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.js"></script>
    <script type="text/javascript" src="jquery.backstretch.min.js"></script>
-   <script src="http://www.xportability.com/XEPOnline/xepOnline.jqPlugin.003.js"></script>
+   <script src="xepOnline_jqPlugin.js"></script>
 
  
    <script type="text/javascript" language="javascript">
@@ -26,12 +29,28 @@
     symptoms[5] = 'CHRONIC EAR INFECTIONS';
     symptoms[6] = 'FREQUENT DIARRHEA';
 
-      $("#main_form input[type='submit']").on("click", function(e) {
-            alert("hola");
-      }); 
+   
+      /*
+      General using another API to create PDF, not needed now.
+      */
+      $('#print_one').bind('click',function () {
+          event.preventDefault();
 
-      $("#main_form").delegate("input[type=submit]", "click", function() {
-          alert("clicked!");
+        console.log( "print_one!!" );
+        printMe();
+     
+      });
+
+      /*
+      General  tester function
+      */
+      $(".total").bind('click',function () {
+           var cList = $('#listS');
+          
+            present_symptoms = "wewewee";
+            console.log(present_symptoms);
+
+
       });
 
       for (i = 1; i <= 7; i++) {
@@ -89,15 +108,35 @@
             
         console.log( " == Exist == " );
 
+        //Clean Url variables
+        console.log( params );
+
+        for(ind = 0; ind <= 6; ind++){
+          params[ind] = params[ind].replace("/+", " ");
+          params[ind] = params[ind].replace(" +", " ");
+          params[ind] = params[ind].replace("+", " ");
+          params[ind] = params[ind].replace("+ ", " ");
+          params[ind] = params[ind].replace(/%2C/g, " ");          
+        }
+      console.log( params );
         dog_data['name']      = params[0].replace("name=", "");
         dog_data['breed']     = params[1].replace("breed=", "");
         dog_data['age']       = params[2].replace("age=", "");
         dog_data['symptoms']  = params[3].replace("symptoms=", "");
+       // dog_data['symptoms']  = dog_data['symptoms'].replace(/%2C/g, " ");
         dog_data['duration']  = params[4].replace("duration=", "");
         dog_data['diet']      = params[5].replace("diet=", "");
-        dog_data['printit']   = params[5].replace("printit=", "");
+        dog_data['diet']      = dog_data['diet'].replace("+", " ");
+        dog_data['printit']   = params[6].replace("printit=", "");
 
-        if(dog_data['printit']!=null && dog_data['printit'] == 'true'){
+        $( ".p1" ).append(dog_data['name'] +"'s Profile");
+        $( ".p2" ).append("<span>Breed:  </span>"+dog_data['breed']);
+        $( ".p3" ).append("<span>Age:  </span>"+dog_data['age']);
+        $( ".p4" ).append("<span>Symptoms:  </span>"+dog_data['symptoms']);
+        $( ".p5" ).append("<span>Duration of Symptoms:  </span>"+dog_data['duration']);
+        $( ".p6" ).append("<span>Current Diet:  </span>"+dog_data['diet']);
+
+        if(dog_data['printit']!=null ){
           console.log( "we are goint to print now!" );
           printMe();
         }
@@ -109,53 +148,38 @@
           $(other_answer).css({'filter':'alpha(opacity=0)', 'zoom':'1', 'opacity':'1'});
       }
 
-       
-
-      //tester function
-      $(".total").bind('click',function () {
-           var cList = $('#listS');
-             for (i = 1; i <= 5; i++) {
-                console.log("A: "+question[i]);
-             }
-
-             
-           
-            var url = window.location.href;
-            var params = url.split("?")[1].split("&");
-            
-            dog_data['name']      = params[0].replace("name=", "");
-            dog_data['breed']     = params[1].replace("breed=", "");
-            dog_data['age']       = params[2].replace("age=", "");
-            dog_data['symptoms']  = params[3].replace("symptoms=", "");
-            dog_data['duration']  = params[4].replace("duration=", "");
-            dog_data['diet']      = params[5].replace("diet=", "");
-            dog_data['printit']   = params[5].replace("printit=", "");
-
-            console.log(dog_data);
-
-            question[3]=1;
-            var present_symptoms = "";
-            for (i in question){              
-                if(question[i]==0){
-                  cList.append("<li  class='opacity'>" + symptoms[i] + "</li>");
-                }else{
-                  cList.append("<li>" + symptoms[i] + "</li>");
-                  present_symptoms = present_symptoms + ", " +symptoms[i];
-                }
-            }
-            console.log(present_symptoms);
-
-            console.log(" Present symptoms");
-            $( ".s3" ).val( present_symptoms ); 
-
-      });
 
   });
+    
 
+      /*
+      Function for print, seems that is not needed now.
+      */
       function printMe(render) {
         console.log( "  ## printing..." );
-        return xepOnline.Formatter.Format('print_me_standart',{pageMargin:'0.5in'});           
+        $(".box1").css("display","none");
+
+
+        //$("#loading").css("display","block");
+        //$("body").css("opacity",0.4);
+        //setTimeout('loading()', 6000);
+        //$("#print_me_standart").css("display","block");
+        // var page = xepOnline.Formatter.Format('print_me_standart',{pageMargin:'0in'});           
+        $("#print_me_standart").css("display","block");
+        $("body").css("background-color","#fff");
+
+        return page;
       }
+
+      /*
+      Display loading gif image. Not needed now.
+      */
+      function loading(){
+        $("#loading").css("display","none");
+        $("body").css("opacity",1);
+      }
+
+
 
 
    </script>
@@ -303,6 +327,16 @@
     .top_space{
       margin-top:5%;
     }
+
+    .footer{
+      position:relative;
+     
+      float:left;
+      background-color:black;
+      width:100%;
+      height:80px;
+    }
+
     /*Fonts*/
     @font-face {
       font-family: 'Antenna-ExtraLight';
@@ -316,6 +350,13 @@
       font-style: normal;
       font-weight: normal;
       src: url('fonts/Antenna-Regular.otf');
+    }
+
+    @font-face {
+      font-family: 'Antenna-Bold';
+      font-style: normal;
+      font-weight: bold;
+      src: url('fonts/Antenna-Bold.otf');
     }
 
     .box_content_home h1{
@@ -393,8 +434,34 @@
       font-size:10px;   
       
     }
+    
+    #profile{
+      position:absolute;
+      top:240px;
+      left:550px;
+      width:370px;
+      height:360px;
+    }
 
-   
+    #profile h2{
+      font-family: 'Antenna-ExtraLight';
+      font-size: 28px;
+      color:#000;
+    }
+
+    #profile p{
+      font-size: 14px;
+      color:#000;
+    }
+
+    #profile span{
+      color:#000;
+      font-family: 'Antenna-Bold';
+      font-weight: bold;
+      font-size: 14px;
+
+    }
+
 
    </style>
 
@@ -408,12 +475,19 @@
         <h1>ARE YOUR <span>#DOGPROBLEMS</span> REAL PROBLEMS? </h1>
         <div class="main_text">
            <p>Food intolerance and food allergies are reactions to a food or ingredient that is normally considered harmless. In people, allergic reactions can be caused by foods such as shellfish or peanuts. In pets, a common protein, such as beef or dairy, is often the trigger. </p><br> 
-            <p>Talk to your veterinarian if your dog exhibits any of the following signs.</p><br>       
+            <p>Talk to your veterinarian if your dog exhibits any of the following signs.</p>     
           
             <a href='#' class='next_1'> <img src='images/checklist.png' /></a><br><br>
-            <a href="#"> <img src='images/printer_icon.png' /><p style="display:inline;"> Print standard sign checklist</p> </a>
+            <a target="_blank" href="standart_print.pdf"> <img src='images/printer_icon.png' /><p style="display:inline;"> Print standard sign checklist</p> </a>
+            <!--
+             <a id="print_one" href="">
+                  <img style="display:none;margin:auto;position:absolute;top:50%;left:50%;" src="images/loading.gif" alt="Loading..." id="loading" />
+                      test</a>
+            -->
+
         </div>
       </div>
+     
    </div>
 
    <div class="dog box2" style="display:none;">
@@ -496,7 +570,7 @@
           <br><p>Talk to your veterinarian to learn more about food intolerance & allergies, and these signs.</p><br>  
           
           <a href='#' class='next_7'> <img src='images/personalize_list.png' /></a><br><br>
-          <a href="#"> <img src='images/printer_icon.png' /><p style="display:inline;"> Print standard sign checklist</p> </a>
+          <a target="_blank" href="standart_print.pdf" > <img src='images/printer_icon.png' /><p style="display:inline;"> Print standard sign checklist</p> </a>
         </div>
    </div>
 
@@ -526,16 +600,22 @@
           <a href='#' onclick="document.forms[0].submit();return false;" class='next_7'> <img src='images/print_perso_checklist.png' /></a>
           </form>
           <br><br>
-          <a href="#"> <img src='images/printer_icon.png' /><p style="display:inline;"> Print standard sign checklist</p> </a>
+          <a target="_blank" href="standart_print.pdf"> <img src='images/printer_icon.png' /><p style="display:inline;"> Print standard sign checklist</p> </a>
         </div>
    </div>
 
-    <div id="print_me_standart" class="dog box9" style="display:none;">   <!--   --> 
-      <img class="dog_box" src="images/standart_checklist.png" />
-    <div>   
+    <div id="print_me_standart" style="display:none;">
+          <img src="http://dev1.pwwcolab.com/images/personalize_print_o.jpg" />
 
-    <div id="test" style="margin-top:5px;">
-    <a href='#' class='total'> total</a>
+          <div id="profile" >
+            <h2 class='p1'></h2>
+            <p class='p2'></p>
+            <p class='p3'></p>
+            <p class='p4'></p>
+            <p class='p5'></p>
+            <p class='p6'></p>
+          </div>
+
     </div>
 
 
