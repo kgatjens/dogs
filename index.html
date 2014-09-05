@@ -54,11 +54,12 @@
               }, 500);
 
             if(nextBox>1 &&  nextBox<7){
-                $("footer").hide("slow"); 
+                $("footer").hide("slow"); //personalize_form
             }
 
             if(nextBox==7){//result page
-              $("#container7").show("slow"); 
+              $("#container7").show("slow");
+              $("footer").show() 
 
               $('html, body').animate({
                 scrollTop: $("#container7").offset().top
