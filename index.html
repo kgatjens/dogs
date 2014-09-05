@@ -7,10 +7,7 @@
 
 
    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.js"></script>
-   <script type="text/javascript" src="jquery.backstretch.min.js"></script>
-   <script src="xepOnline_jqPlugin.js"></script>
-
- 
+  
    <script type="text/javascript" language="javascript">
 
    $(document).ready(function() {
@@ -30,17 +27,6 @@
     symptoms[6] = 'FREQUENT DIARRHEA';
 
    
-    /*
-    General using another API to create PDF, not needed now.
-    
-    $('#print_one').bind('click',function () {
-        event.preventDefault();
-
-      console.log( "print_one!!" );
-      printMe();
-   
-    });*/
-
     for (i = 1; i <= 8; i++) {
       var yes_answer = ".yes_" + i;
       var no_answer = ".no_" + i;
@@ -63,15 +49,10 @@
            var nextBox = parseInt(e.data.id); 
            nextBox = nextBox + 1;
 
-            //$(".box"+e.data.id).slideUp("slow");
-            //$(".box"+nextBox).show("slow"); 
-
             $('html, body').animate({
                 scrollTop: $(".box"+nextBox).offset().top
               }, 500);
 
-            //$(".box"+e.data.id).slideToggle("slow");
-            //$(".box"+e.data.id).animate({scrollTop: $(".box"+nextBox).offset().top});
             if(nextBox>1 &&  nextBox<7){
                 $("footer").hide("slow"); 
             }
@@ -111,12 +92,7 @@
         });
     }
 
-    /*
-    $("#finish").click(function(){
-      $("#container7").show("slow"); 
-      document.getElementById("container7").scrollIntoView()
-    });*/
-    
+     
     $('.submitForm').click(function(e){
       e.preventDefault();
       for (i = 1; i <= 8; i++) {
@@ -142,7 +118,7 @@
       window.scrollTo(0,0);
     });
 
-    $('#print_checks').click(function(e){
+    $('.print_checks').click(function(e){
       e.preventDefault();
 
       for (i = 1; i <= 8; i++) {
@@ -150,6 +126,17 @@
       }
 
       $("#print_checks_box").show();
+      
+      for (i = 2; i <= 6; i++) {
+          if(question[i]==1){
+            var temp = i-1;
+            $(".check_"+temp).css("display","block");
+          }
+          symptoms[i] = '';
+      }
+
+
+      
       $("body").css("background-color","#fff");
       window.scrollTo(0,0);
     });
@@ -165,15 +152,7 @@
     Function for print, seems that is not needed now.
     */
     function printMe(render) {
-      console.log( "  ## printing..." );
-      //$(".box1").css("display","none");
-
-      //$("#loading").css("display","block");
-      //$("body").css("opacity",0.4);
-      //setTimeout('loading()', 6000);
-      //$("#print_me_standard").css("display","block");
-      // var page = xepOnline.Formatter.Format('print_me_standard',{pageMargin:'0in'});           
-      
+ 
       for (i = 1; i <= 8; i++) {
         $(".box"+i).hide(); 
       }
@@ -186,54 +165,6 @@
 
  });
 
-/*
-
-    var dog_data = [];      
-    var url = decodeURIComponent(window.location.href);
-    console.log( "URL: "+url );
-    var params = url.split("?")[1].split("&");
-
-    if(params[0]!==""||params[0]!==null){
-          
-      console.log( " == Exist == " );
-
-      //Clean Url variables
-      console.log( params );
-
-    
-      for(ind = 0; ind <= 6; ind++){
-        params[ind] = params[ind].replace("/+", " ");
-        params[ind] = params[ind].replace(" +", " ");
-        params[ind] = params[ind].replace("+", " ");
-        params[ind] = params[ind].replace("+ ", " ");
-        params[ind] = params[ind].replace(/%2C+/g, " ");          
-      }
-      
-
-      console.log( params );
-      dog_data['name']      = params[0].replace("name=", "");
-      dog_data['breed']     = params[1].replace("breed=", "");
-      dog_data['age']       = params[2].replace("age=", "");
-      dog_data['symptoms']  = params[3].replace("symptoms=", "");
-     // dog_data['symptoms']  = dog_data['symptoms'].replace(/%2C/g, " ");
-      dog_data['duration']  = params[4].replace("duration=", "");
-      dog_data['diet']      = params[5].replace("diet=", "");
-      dog_data['printit']   = params[6].replace("printit=", "");
-
-      $( ".p1" ).append(dog_data['name'] +"'s Profile");
-      $( ".p2" ).append("<span>Breed:  </span>"+dog_data['breed']);
-      $( ".p3" ).append("<span>Age:  </span>"+dog_data['age']);
-      $( ".p4" ).append("<span>Symptoms:  </span>"+dog_data['symptoms']);
-      $( ".p5" ).append("<span>Duration of Symptoms:  </span>"+dog_data['duration']);
-      $( ".p6" ).append("<span>Current Diet:  </span>"+dog_data['diet']);
-
-      if(dog_data['printit']!=null ){
-        console.log( "we are goint to print now!" );
-        printMe();
-      }
-      console.log( dog_data );
-    }
-    */
 
   </script>
 
@@ -350,7 +281,7 @@
     }
 
     #shadowBox ul {
-        list-style-image: url('images/check.png');
+        list-style-image: url('http://static.tumblr.com/9dedyjo/LVinbedah/check.png');
     }
 
     #shadowBox p{
@@ -417,21 +348,21 @@
       font-family: 'Antenna-ExtraLight';
       font-style: normal;
       font-weight: normal;
-      src: url('fonts/Antenna-ExtraLight.otf');
+      src: url('http://static.tumblr.com/9dedyjo/9Genbedp8/antenna-extralight.otf');
     }
 
      @font-face {
       font-family: 'Antenna-Regular';
       font-style: normal;
       font-weight: normal;
-      src: url('fonts/Antenna-Regular.otf');
+      src: url('http://static.tumblr.com/9dedyjo/NgFnbedpo/antenna-regular.otf');
     }
 
     @font-face {
       font-family: 'Antenna-Bold';
       font-style: normal;
       font-weight: bold;
-      src: url('fonts/Antenna-Bold.otf');
+      src: url('http://static.tumblr.com/9dedyjo/dAanbedq2/antenna-bold.otf');
     }
 
     .box_content_home h1{
@@ -548,7 +479,7 @@
       height: 54px;
       display: block;
       margin: 0 auto;
-      background: transparent url(images/print_perso_checklist.png) left top no-repeat;
+      background: transparent url(http://static.tumblr.com/9dedyjo/3OHnbedn2/print_perso_checklist.png) left top no-repeat;
     }
 
     #print_me_standard {
@@ -580,7 +511,7 @@
     }
 
     .check_3{
-     top:383px; 
+     top:383px;
     }
 
     .check_4{
@@ -588,7 +519,7 @@
     }
 
     .check_5{
-      top:453px;
+      top:453px;      
     }
 
    </style>
@@ -598,15 +529,15 @@
 <body>
  
    <div class="dog box1" id="container1" style="display:block;" > 
-    <img class="dog_box" src="images/dog_1.jpg" />     
+    <img class="dog_box" src="http://static.tumblr.com/9dedyjo/07Nnbedb0/dog_1.jpg" />     
       <div class='box_content_home'>
         <h1>ARE YOUR <span>#DOGPROBLEMS</span> REAL PROBLEMS? </h1>
         <div class="main_text">
            <p>Food intolerance and food allergies are reactions to a food or ingredient that is normally considered harmless. In people, allergic reactions can be caused by foods such as shellfish or peanuts. In pets, a common protein, such as beef or dairy, is often the trigger. </p><br> 
             <p>Talk to your veterinarian if your dog exhibits any of the following signs.</p>     
           
-            <a href='#' class='next_1'> <img src='images/checklist.png' /></a><br><br>
-            <a target="_blank" href="standart_print.pdf"> <img src='images/printer_icon.png' /><p style="display:inline;"> Print standard sign checklist</p> </a>
+            <a href='#' class='next_1'> <img src='http://static.tumblr.com/9dedyjo/NoLnbedbn/checklist.png' /></a><br><br>
+            <a target="_blank" href="http://static.tumblr.com/9dedyjo/HVhnbedol/standart_print.pdf"> <img src='http://static.tumblr.com/9dedyjo/3wbnbedc4/printer_icon.png' /><p style="display:inline;"> Print standard sign checklist</p> </a>
             <!--
              <a id="print_one" href="">
                   <img style="display:none;margin:auto;position:absolute;top:50%;left:50%;" src="images/loading.gif" alt="Loading..." id="loading" />
@@ -616,18 +547,18 @@
         </div>
       </div>
       <footer>
-      <img class="footer_image" src="images/pack.png" />
-        <a href=""><h5> Learn more about Purina HA Hydrolyzed Formula <img src="images/footer_link.png" /></h5></a>
+      <img class="footer_image" src="http://static.tumblr.com/9dedyjo/RH1nbedck/pack.png" />
+        <a href=""><h5> Learn more about Purina HA Hydrolyzed Formula <img src="http://static.tumblr.com/9dedyjo/R7gnbeden/footer_link.png" /></h5></a>
         <p style="margin-top:-10px;">To Find a veterinarian please call 1-800-222-VETS (8387) 8am - 4:30pm CT, Monday through Friday</p>
         <div id="left_footer">
-          <a href="#"><img style="margin-left:20px;float:left;" src="images/footer_fb_share.png" /></a>
-          <a href="#"><img src="images/footer_tw_share.png" /></a>
+          <a href="#"><img style="margin-left:20px;float:left;" src="http://static.tumblr.com/9dedyjo/D53nbedfq/footer_fb_share.png" /></a>
+          <a href="#"><img src="http://static.tumblr.com/9dedyjo/R3Bnbedge/footer_tw_share.png" /></a>
         </div>
       </footer>
    </div>
 
    <div class="dog box2" id="container2" style="display:block;">
-     <img class="dog_box" src="images/dog_2.jpg" />     
+     <img class="dog_box" src="http://static.tumblr.com/9dedyjo/p8nnbedh4/dog_2.jpg" />     
         <div class='box_content'>
           <h1>Does your dog have excessive gas?</h1> 
           <h2>
@@ -636,12 +567,12 @@
           </h2>
           
           <p class="top_space" >1/5</p>
-          <a href='#' class='next_2'> <img src='images/next.png' /></a>
+          <a href='#' class='next_2'> <img src='http://static.tumblr.com/9dedyjo/082nbedhs/next.png' /></a>
         </div>  
    </div>
 
     <div class="dog box3" id="container3" style="display:block;">   
-      <img class="dog_box" src="images/dog_3.jpg" />     
+      <img class="dog_box" src="http://static.tumblr.com/9dedyjo/tsanbedic/dog_3.jpg" />     
         <div class='box_content'>
           <h1>Does your pet vomit frequently?</h1>
           <h2>
@@ -650,12 +581,12 @@
           </h2>
           
           <p class="top_space" >2/5</p>    
-          <a href='#' class='next_3'> <img src='images/next.png' /></a>
+          <a href='#' class='next_3'> <img src='http://static.tumblr.com/9dedyjo/082nbedhs/next.png' /></a>
         </div>
    </div>
 
     <div class="dog box4" id="container4" style="display:block;">   
-      <img class="dog_box" src="images/dog_4.jpg" />     
+      <img class="dog_box" src="http://static.tumblr.com/9dedyjo/QMgnbediw/dog_4.jpg" />     
         <div class='box_content'>
           <h1>Do you find your pet itching and scratching year-round?</h1>
           <h2>
@@ -663,12 +594,12 @@
             <a href='#container4' class='no_4'>No</a> 
           </h2>  
           <p class="top_space" >3/5</p>          
-          <a href='#' class='next_4'> <img src='images/next.png' /></a>
+          <a href='#' class='next_4'> <img src='http://static.tumblr.com/9dedyjo/082nbedhs/next.png' /></a>
         </div>
    </div>
 
     <div class="dog box5" id="container5" style="display:block;">   
-      <img class="dog_box" src="images/dog_5.jpg" />     
+      <img class="dog_box" src="http://static.tumblr.com/9dedyjo/jV2nbedjm/dog_5.jpg" />     
         <div class='box_content'>
         <h1>Is your pet plagued by chronic and recurring ear infections?</h1>
         <h2>
@@ -676,12 +607,12 @@
           <a href='#container5' class='no_5'>No</a>
         </h2>   
           <p class="top_space" >4/5<p>      
-          <a href='#' class='next_5'><img src='images/next.png' /></a>
+          <a href='#' class='next_5'><img src='http://static.tumblr.com/9dedyjo/082nbedhs/next.png' /></a>
         </div>
    </div>
 
    <div class="dog box6" id="container6" style="display:block;">   
-      <img class="dog_box" src="images/dog_6.jpg" />     
+      <img class="dog_box" src="http://static.tumblr.com/9dedyjo/0pWnbedk1/dog_6.jpg" />     
         <div class='box_content'>
           <h1>Does your PET frequently suffer from diarrhea?</h1>
           <h2>
@@ -689,13 +620,12 @@
             <a href='#container6' class='no_6'>No</a>
           </h2>
           <p class="top_space" >5/5<p>      
-          <a  class='next_6'><img src='images/finish.png' /></a>
-          <!--<div id="finish" style="background: url('images/finish.png'); width: 145px; height:55px; cursor:pointer;"></div>-->
+          <a  class='next_6'><img src='http://static.tumblr.com/9dedyjo/BmCnbedkx/finish.png' /></a>
         </div>
    </div>
 
    <div class="dog box7" id="container7" style="display:none;">   <!--   --> 
-      <img class="dog_box" src="images/dog_1.jpg" />     
+      <img class="dog_box" src="http://static.tumblr.com/9dedyjo/07Nnbedb0/dog_1.jpg" />     
         <div class='box_content_results'>
            <p>If your dog displays any of the previous signs, especially both<br>
           dermatological and gastrointestinal, his troubles may lie with food intolerance or allergies.</p>
@@ -706,22 +636,22 @@
           </div>
           <br><p>Talk to your veterinarian to learn more about food intolerance & allergies, and these signs.</p><br>  
           
-          <a href='#' class='next_7'> <img src='images/personalize_list.png' /></a><br><br>
-          <a id="print_checks" target="_blank" href="" > <img src='images/printer_icon.png' /><p style="display:inline;"> Print standard sign checklist</p> </a>
+          <a href='#' class='next_7'> <img src='http://static.tumblr.com/9dedyjo/b25nbedly/personalize_list.png' /></a><br><br>
+          <a class="print_checks" target="_blank" href="" > <img src='http://static.tumblr.com/9dedyjo/3wbnbedc4/printer_icon.png' /><p style="display:inline;"> Print standard sign checklist</p> </a>
         </div>
          <footer>
-          <img class="footer_image" src="images/pack.png" />
-            <a href=""><h5> Learn more about Purina HA Hydrolyzed Formula <img src="images/footer_link.png" /></h5></a>
+          <img class="footer_image" src="http://static.tumblr.com/9dedyjo/RH1nbedck/pack.png" />
+            <a href=""><h5> Learn more about Purina HA Hydrolyzed Formula <img src="http://static.tumblr.com/9dedyjo/R7gnbeden/footer_link.png" /></h5></a>
             <p style="margin-top:-10px;">To Find a veterinarian please call 1-800-222-VETS (8387) 8am - 4:30pm CT, Monday through Friday</p>
             <div id="left_footer">
-              <a href="#"><img style="margin-left:20px;float:left;" src="images/footer_fb_share.png" /></a>
-              <a href="#"><img src="images/footer_tw_share.png" /></a>
+              <a href="#"><img style="margin-left:20px;float:left;" src="http://static.tumblr.com/9dedyjo/D53nbedfq/footer_fb_share.png" /></a>
+              <a href="#"><img src="http://static.tumblr.com/9dedyjo/R3Bnbedge/footer_tw_share.png" /></a>
             </div>
         </footer>
    </div>
 
    <div id="personalize_form" class="dog box8" style="display:none;">   <!--   --> 
-      <img class="dog_box" src="images/dog_1.jpg" />     
+      <img class="dog_box" src="http://static.tumblr.com/9dedyjo/07Nnbedb0/dog_1.jpg" />     
         <div class='box_content_results'>         
 
            <p>Add additional information about your pet to customize his sign checklist, <br>
@@ -743,36 +673,35 @@
               <span class="small_font">This information will not be saved. It will be printed on your personalized sign checklist to take to your veterinarian.</span>
           </div>       
           <br><br>
-          <!--<a href='#' onclick="document.forms[0].submit();return false;" class='next_7'> <img src='images/print_perso_checklist.png' /></a>-->
           <span class="submitForm"></span>
           </form>
           <br><br>
-          <a target="_blank" href="standart_print.pdf"> <img src='images/printer_icon.png' /><p style="display:inline;"> Print standard sign checklist</p> </a>
+          <a target="_blank" class="print_checks" href="" > <img src='http://static.tumblr.com/9dedyjo/3wbnbedc4/printer_icon.png' /><p style="display:inline;"> Print standard sign checklist</p> </a>
         </div>
          <footer>
-          <img class="footer_image" src="images/pack.png" />
-            <a href=""><h5> Learn more about Purina HA Hydrolyzed Formula <img src="images/footer_link.png" /></h5></a>
+          <img class="footer_image" src="http://static.tumblr.com/9dedyjo/RH1nbedck/pack.png" />
+            <a href=""><h5> Learn more about Purina HA Hydrolyzed Formula <img src="http://static.tumblr.com/9dedyjo/R7gnbeden/footer_link.png" /></h5></a>
             <p style="margin-top:-10px;">To Find a veterinarian please call 1-800-222-VETS (8387) 8am - 4:30pm CT, Monday through Friday</p>
             <div id="left_footer">
-              <a href="#"><img style="margin-left:20px;float:left;" src="images/footer_fb_share.png" /></a>
-              <a href="#"><img src="images/footer_tw_share.png" /></a>
+              <a href="#"><img style="margin-left:20px;float:left;" src="http://static.tumblr.com/9dedyjo/D53nbedfq/footer_fb_share.png" /></a>
+              <a href="#"><img src="http://static.tumblr.com/9dedyjo/R3Bnbedge/footer_tw_share.png" /></a>
             </div>
           </footer>
    </div>
 
     <div id="print_checks_box" style="display:none;">
-          <img src="images/print_checks.jpg" />
+          <img src="http://static.tumblr.com/9dedyjo/ToHnbev3g/print_checks.jpg" />
 
-          <div class="checks check_1"><img src="images/check.png" /></div>
-          <div class="checks check_2"><img src="images/check.png" /></div>
-          <div class="checks check_3"><img src="images/check.png" /></div>
-          <div class="checks check_4"><img src="images/check.png" /></div>
-          <div class="checks check_5"><img src="images/check.png" /></div>
+          <div class="checks check_1" style="display:none;"><img src="http://static.tumblr.com/9dedyjo/LVinbedah/check.png" /></div>
+          <div class="checks check_2" style="display:none;"><img src="http://static.tumblr.com/9dedyjo/LVinbedah/check.png" /></div>
+          <div class="checks check_3" style="display:none;"><img src="http://static.tumblr.com/9dedyjo/LVinbedah/check.png" /></div>
+          <div class="checks check_4" style="display:none;"><img src="http://static.tumblr.com/9dedyjo/LVinbedah/check.png" /></div>
+          <div class="checks check_5" style="display:none;"><img src="http://static.tumblr.com/9dedyjo/LVinbedah/check.png" /></div>
     </div>
 
 
     <div id="print_me_standard" style="display:none;">
-          <img src="images/personalize_print_o.jpg" />
+          <img src="http://static.tumblr.com/9dedyjo/H4inbednn/personalize_print_o.jpg" />
 
           <div id="profile" >
             <h2 class='p1'></h2>
