@@ -30,159 +30,212 @@
     symptoms[6] = 'FREQUENT DIARRHEA';
 
    
-      /*
-      General using another API to create PDF, not needed now.
-      */
-      $('#print_one').bind('click',function () {
-          event.preventDefault();
-
-        console.log( "print_one!!" );
-        printMe();
-     
-      });
-
-      /*
-      General  tester function
-      */
-      $(".total").bind('click',function () {
-           var cList = $('#listS');
-          
-            present_symptoms = "wewewee";
-            console.log(present_symptoms);
-
-
-      });
-
-      for (i = 1; i <= 7; i++) {
-        var yes_answer = ".yes_" + i;
-        var no_answer = ".no_" + i;
-        var next = ".next_" + i;
-       
-          $(yes_answer).on('click', {id: i}, function (e) {    
-            question[e.data.id]=1;
-            a_opacity(this, '.no_'+e.data.id);
-            console.log( "Anwer #: "+ e.data.id + "=="+question[e.data.id]);
-          });
-
-          $(no_answer).on('click', {id: i}, function (e) {
-            question[e.data.id]=0;
-            a_opacity(this, '.yes_'+e.data.id);
-          });
-            
-          var present_symptoms = "";
-
-          $(next).on('click', {id: i}, function (e) {
-             var nextBox = parseInt(e.data.id); 
-             nextBox = nextBox + 1;
-
-              $(".box"+e.data.id).slideUp("slow");
-              $(".box"+nextBox).show("slow"); 
-
-              if(nextBox==7){//result page
-                console.log('7');
-                  //#shadowBox .list li
-                  var cList = $('#listS');
-                  for (i in question){ 
-                  console.log(question[i]);             
-                    if(question[i]==0){
-                      cList.append("<li  class='opacity'>" + symptoms[i] + "</li>");
-                    }else{
-                      cList.append("<li>" + symptoms[i] + "</li>");
-                      present_symptoms =  symptoms[i] + ", " + present_symptoms ;
-                    }
-                  }
-
-                  console.log(present_symptoms);
-                  console.log(" Present symptoms");
-                  $( ".s3" ).val( present_symptoms );
-
-              }
-          });
-      }
-
-      var dog_data = [];      
-      var url = window.location.href;
-      var params = url.split("?")[1].split("&");
-
-      if(params[0]!==""||params[0]!==null){
-            
-        console.log( " == Exist == " );
-
-        //Clean Url variables
-        console.log( params );
-
-        for(ind = 0; ind <= 6; ind++){
-          params[ind] = params[ind].replace("/+", " ");
-          params[ind] = params[ind].replace(" +", " ");
-          params[ind] = params[ind].replace("+", " ");
-          params[ind] = params[ind].replace("+ ", " ");
-          params[ind] = params[ind].replace(/%2C/g, " ");          
-        }
-      console.log( params );
-        dog_data['name']      = params[0].replace("name=", "");
-        dog_data['breed']     = params[1].replace("breed=", "");
-        dog_data['age']       = params[2].replace("age=", "");
-        dog_data['symptoms']  = params[3].replace("symptoms=", "");
-       // dog_data['symptoms']  = dog_data['symptoms'].replace(/%2C/g, " ");
-        dog_data['duration']  = params[4].replace("duration=", "");
-        dog_data['diet']      = params[5].replace("diet=", "");
-        dog_data['diet']      = dog_data['diet'].replace("+", " ");
-        dog_data['printit']   = params[6].replace("printit=", "");
-
-        $( ".p1" ).append(dog_data['name'] +"'s Profile");
-        $( ".p2" ).append("<span>Breed:  </span>"+dog_data['breed']);
-        $( ".p3" ).append("<span>Age:  </span>"+dog_data['age']);
-        $( ".p4" ).append("<span>Symptoms:  </span>"+dog_data['symptoms']);
-        $( ".p5" ).append("<span>Duration of Symptoms:  </span>"+dog_data['duration']);
-        $( ".p6" ).append("<span>Current Diet:  </span>"+dog_data['diet']);
-
-        if(dog_data['printit']!=null ){
-          console.log( "we are goint to print now!" );
-          printMe();
-        }
-        console.log( dog_data );
-      }
-
-      function a_opacity(answer, other_answer) {
-          $(answer).css({'filter':'alpha(opacity=60)', 'zoom':'1', 'opacity':'0.6'});
-          $(other_answer).css({'filter':'alpha(opacity=0)', 'zoom':'1', 'opacity':'1'});
-      }
-
-
-  });
+    /*
+    General using another API to create PDF, not needed now.
     
+    $('#print_one').bind('click',function () {
+        event.preventDefault();
 
-      /*
-      Function for print, seems that is not needed now.
-      */
-      function printMe(render) {
-        console.log( "  ## printing..." );
-        $(".box1").css("display","none");
+      console.log( "print_one!!" );
+      printMe();
+   
+    });*/
 
+    for (i = 1; i <= 8; i++) {
+      var yes_answer = ".yes_" + i;
+      var no_answer = ".no_" + i;
+      var next = ".next_" + i;
+     
+        $(yes_answer).on('click', {id: i}, function (e) {    
+          question[e.data.id]=1;
+          a_opacity(this, '.no_'+e.data.id);
+          console.log( "Anwer #: "+ e.data.id + "=="+question[e.data.id]);
+        });
 
-        //$("#loading").css("display","block");
-        //$("body").css("opacity",0.4);
-        //setTimeout('loading()', 6000);
-        //$("#print_me_standart").css("display","block");
-        // var page = xepOnline.Formatter.Format('print_me_standart',{pageMargin:'0in'});           
-        $("#print_me_standart").css("display","block");
-        $("body").css("background-color","#fff");
+        $(no_answer).on('click', {id: i}, function (e) {
+          question[e.data.id]=0;
+          a_opacity(this, '.yes_'+e.data.id);
+        });
+          
+        var present_symptoms = "";
 
-        return page;
+        $(next).on('click', {id: i}, function (e) {
+           var nextBox = parseInt(e.data.id); 
+           nextBox = nextBox + 1;
+
+            //$(".box"+e.data.id).slideUp("slow");
+            //$(".box"+nextBox).show("slow"); 
+
+            $('html, body').animate({
+                scrollTop: $(".box"+nextBox).offset().top
+              }, 500);
+
+            //$(".box"+e.data.id).slideToggle("slow");
+            //$(".box"+e.data.id).animate({scrollTop: $(".box"+nextBox).offset().top});
+            if(nextBox>1 &&  nextBox<7){
+                $("footer").hide("slow"); 
+            }
+
+            if(nextBox==7){//result page
+              $("#container7").show("slow"); 
+
+              $('html, body').animate({
+                scrollTop: $("#container7").offset().top
+              }, 500);
+
+                //#shadowBox .list li
+                var cList = $('#listS');
+                for (i in question){ 
+                console.log(question[i]);             
+                  if(question[i]==0){
+                    cList.append("<li  class='opacity'>" + symptoms[i] + "</li>");
+                  }else{
+                    cList.append("<li>" + symptoms[i] + "</li>");
+                    present_symptoms =  symptoms[i] + ", " + present_symptoms ;
+                  }
+                }
+
+                console.log(present_symptoms);
+                console.log(" Present symptoms");
+                $( ".s3" ).val( present_symptoms );
+            }
+
+            if(nextBox==8){
+              $("#personalize_form").show("slow"); 
+
+              $('html, body').animate({
+                scrollTop: $("#personalize_form").offset().top
+              }, 500);
+            }
+            
+        });
+    }
+
+    /*
+    $("#finish").click(function(){
+      $("#container7").show("slow"); 
+      document.getElementById("container7").scrollIntoView()
+    });*/
+    
+    $('.submitForm').click(function(e){
+      e.preventDefault();
+      for (i = 1; i <= 8; i++) {
+        $(".box"+i).hide(); 
       }
 
-      /*
-      Display loading gif image. Not needed now.
-      */
-      function loading(){
-        $("#loading").css("display","none");
-        $("body").css("opacity",1);
+      var name = $('#textfield1').val(),
+          breed = $('#textfield2').val(),
+          age = $('#textfield3').val(),
+          symptoms = $('#textfield4').val(),
+          duration = $('#textfield5').val(),
+          diet = $('#textfield6').val();
+      
+      $( ".p1" ).append(name +"'s Profile");
+      $( ".p2" ).append("<span>Breed:  </span>"+breed);
+      $( ".p3" ).append("<span>Age:  </span>"+age);
+      $( ".p4" ).append("<span>Symptoms:  </span>"+symptoms);
+      $( ".p5" ).append("<span>Duration of Symptoms:  </span>"+duration);
+      $( ".p6" ).append("<span>Current Diet:  </span>"+diet);
+
+      $("#print_me_standard").css("display","block");
+      $("body").css("background-color","#fff");
+      window.scrollTo(0,0);
+    });
+
+    $('#print_checks').click(function(e){
+      e.preventDefault();
+
+      for (i = 1; i <= 8; i++) {
+        $(".box"+i).hide(); 
       }
 
+      $("#print_checks_box").show();
+      $("body").css("background-color","#fff");
+      window.scrollTo(0,0);
+    });
 
 
 
-   </script>
+    function a_opacity(answer, other_answer) {
+        $(answer).css({'filter':'alpha(opacity=60)', 'zoom':'1', 'opacity':'0.6'});
+        $(other_answer).css({'filter':'alpha(opacity=0)', 'zoom':'1', 'opacity':'1'});
+    }
+
+    /*
+    Function for print, seems that is not needed now.
+    */
+    function printMe(render) {
+      console.log( "  ## printing..." );
+      //$(".box1").css("display","none");
+
+      //$("#loading").css("display","block");
+      //$("body").css("opacity",0.4);
+      //setTimeout('loading()', 6000);
+      //$("#print_me_standard").css("display","block");
+      // var page = xepOnline.Formatter.Format('print_me_standard',{pageMargin:'0in'});           
+      
+      for (i = 1; i <= 8; i++) {
+        $(".box"+i).hide(); 
+      }
+
+      $("#print_me_standard").show();
+      $("body").css("background-color","#fff");
+
+      return page;
+    }
+
+ });
+
+/*
+
+    var dog_data = [];      
+    var url = decodeURIComponent(window.location.href);
+    console.log( "URL: "+url );
+    var params = url.split("?")[1].split("&");
+
+    if(params[0]!==""||params[0]!==null){
+          
+      console.log( " == Exist == " );
+
+      //Clean Url variables
+      console.log( params );
+
+    
+      for(ind = 0; ind <= 6; ind++){
+        params[ind] = params[ind].replace("/+", " ");
+        params[ind] = params[ind].replace(" +", " ");
+        params[ind] = params[ind].replace("+", " ");
+        params[ind] = params[ind].replace("+ ", " ");
+        params[ind] = params[ind].replace(/%2C+/g, " ");          
+      }
+      
+
+      console.log( params );
+      dog_data['name']      = params[0].replace("name=", "");
+      dog_data['breed']     = params[1].replace("breed=", "");
+      dog_data['age']       = params[2].replace("age=", "");
+      dog_data['symptoms']  = params[3].replace("symptoms=", "");
+     // dog_data['symptoms']  = dog_data['symptoms'].replace(/%2C/g, " ");
+      dog_data['duration']  = params[4].replace("duration=", "");
+      dog_data['diet']      = params[5].replace("diet=", "");
+      dog_data['printit']   = params[6].replace("printit=", "");
+
+      $( ".p1" ).append(dog_data['name'] +"'s Profile");
+      $( ".p2" ).append("<span>Breed:  </span>"+dog_data['breed']);
+      $( ".p3" ).append("<span>Age:  </span>"+dog_data['age']);
+      $( ".p4" ).append("<span>Symptoms:  </span>"+dog_data['symptoms']);
+      $( ".p5" ).append("<span>Duration of Symptoms:  </span>"+dog_data['duration']);
+      $( ".p6" ).append("<span>Current Diet:  </span>"+dog_data['diet']);
+
+      if(dog_data['printit']!=null ){
+        console.log( "we are goint to print now!" );
+        printMe();
+      }
+      console.log( dog_data );
+    }
+    */
+
+  </script>
 
    <style type="text/css">
     body{
@@ -249,27 +302,40 @@
       background-size: 100%;
       background-repeat:no-repeat;
       /*min-height:768px;*/
-      min-width:1024;
+      min-width:1024px;
     }
     
     .box_content{
-      position:absolute;
-      top:40%;
-      left:10%;
+      min-width:1024px;
+      position:relative;
+      top:-750px;
+      left:0%;
       margin:auto;
       width:80%;
-      height:90%;
+      margin-top:-45px;
+      height: 10px;
       /*background-color:#ccc;*/
       text-align: center;
     }
 
+    .box_content_home{
+      position:absolute;
+      min-width:1024px;
+      top:50%;
+      left:5%;
+      margin:auto;
+      width:90%;
+      height:40%;
+      /*background-color:red;*/
+    }
+
     .box_content_results{
       position:absolute;
-      top:10%;
-      left:10%;
-      margin:auto;
-      width:80%;
-      height:90%;
+      width:668px;
+      top:14%;
+      left:50%;
+      margin-left: -338px;
+      height: 10px;
       text-align: center; 
     }
 
@@ -280,7 +346,7 @@
         margin:auto;
         padding:auto;
         margin-top:30px;
-        background: rgba(0, 0, 0, 0.5)
+        background: rgba(0, 0, 0, 0.5);
     }
 
     #shadowBox ul {
@@ -296,16 +362,6 @@
     .box7 .dog_box, .box8 .dog_box{
        filter: alpha(opacity=40);
         opacity: 0.4;
-    }
-
-    .box_content_home{
-      position:absolute;
-      top:60%;
-      left:5%;
-      margin:auto;
-      width:90%;
-      height:40%;
-      /*background-color:red;*/
     }
 
     .total{
@@ -328,13 +384,32 @@
       margin-top:5%;
     }
 
-    .footer{
-      position:relative;
-     
-      float:left;
+    footer{
+      clear:both;
+      text-align:center;
       background-color:black;
+      position:fixed; z-index:999;
       width:100%;
+      bottom:0px;
       height:80px;
+
+    }
+
+    .footer_image{
+      position:absolute;
+      left:-20px;
+      top:-190px;
+    }
+
+    #left_footer{
+      position:absolute;
+      right:20px;
+      top:40px;
+      width:90px;
+    }
+
+    #container7, #personalize_form{
+      position:relative;
     }
 
     /*Fonts*/
@@ -397,6 +472,12 @@
       text-transform: uppercase;
       padding-top: 20px;
      }
+
+     h5{
+      font-family: 'Antenna-Bold';
+      font-size: 12px;
+      color:#f9a21a;
+    }
 
     .box_content_home span{
       font-family: 'Antenna-ExtraLight';
@@ -462,6 +543,53 @@
 
     }
 
+    .submitForm {
+      width: 387px;
+      height: 54px;
+      display: block;
+      margin: 0 auto;
+      background: transparent url(images/print_perso_checklist.png) left top no-repeat;
+    }
+
+    #print_me_standard {
+      width: 1090px;
+      margin: 0 auto;
+      position: relative;
+    }
+
+    #print_checks_box{
+      width: 1018px;
+      height: 1317px;
+      margin: 0 auto;
+      position: relative;
+    }
+
+    .checks{
+      position: absolute;
+      width: 24px;
+      height: 21px;
+      left:557px;
+    }
+
+    .check_1{
+      top:316px;
+    }
+
+    .check_2{
+      top:350px;
+    }
+
+    .check_3{
+     top:383px; 
+    }
+
+    .check_4{
+      top:419px;
+    }
+
+    .check_5{
+      top:453px;
+    }
 
    </style>
 
@@ -469,7 +597,7 @@
 </head>
 <body>
  
-   <div class="dog box1" style="display:block;" > 
+   <div class="dog box1" id="container1" style="display:block;" > 
     <img class="dog_box" src="images/dog_1.jpg" />     
       <div class='box_content_home'>
         <h1>ARE YOUR <span>#DOGPROBLEMS</span> REAL PROBLEMS? </h1>
@@ -487,16 +615,24 @@
 
         </div>
       </div>
-     
+      <footer>
+      <img class="footer_image" src="images/pack.png" />
+        <a href=""><h5> Learn more about Purina HA Hydrolyzed Formula <img src="images/footer_link.png" /></h5></a>
+        <p style="margin-top:-10px;">To Find a veterinarian please call 1-800-222-VETS (8387) 8am - 4:30pm CT, Monday through Friday</p>
+        <div id="left_footer">
+          <a href="#"><img style="margin-left:20px;float:left;" src="images/footer_fb_share.png" /></a>
+          <a href="#"><img src="images/footer_tw_share.png" /></a>
+        </div>
+      </footer>
    </div>
 
-   <div class="dog box2" style="display:none;">
+   <div class="dog box2" id="container2" style="display:block;">
      <img class="dog_box" src="images/dog_2.jpg" />     
         <div class='box_content'>
           <h1>Does your dog have excessive gas?</h1> 
           <h2>
-            <a href='#' class='yes_2'>Yes </a><span>|</span>
-            <a href='#' class='no_2'>No</a>
+            <a href='#container2' class='yes_2'>Yes </a><span>|</span>
+            <a href='#container2' class='no_2'>No</a>
           </h2>
           
           <p class="top_space" >1/5</p>
@@ -504,13 +640,13 @@
         </div>  
    </div>
 
-    <div class="dog box3" style="display:none;">   
+    <div class="dog box3" id="container3" style="display:block;">   
       <img class="dog_box" src="images/dog_3.jpg" />     
         <div class='box_content'>
           <h1>Does your pet vomit frequently?</h1>
           <h2>
-            <a href='#' class='yes_3'>Yes </a><span>|</span>
-            <a href='#' class='no_3'>No</a>
+            <a href='#container3' class='yes_3'>Yes </a><span>|</span>
+            <a href='#container3' class='no_3'>No</a>
           </h2>
           
           <p class="top_space" >2/5</p>    
@@ -518,46 +654,47 @@
         </div>
    </div>
 
-    <div class="dog box4" style="display:none;">   
+    <div class="dog box4" id="container4" style="display:block;">   
       <img class="dog_box" src="images/dog_4.jpg" />     
         <div class='box_content'>
           <h1>Do you find your pet itching and scratching year-round?</h1>
           <h2>
-            <a href='#' class='yes_4'>Yes </a><span>|</span>
-            <a href='#' class='no_4'>No</a> 
+            <a href='#container4' class='yes_4'>Yes </a><span>|</span>
+            <a href='#container4' class='no_4'>No</a> 
           </h2>  
           <p class="top_space" >3/5</p>          
           <a href='#' class='next_4'> <img src='images/next.png' /></a>
         </div>
    </div>
 
-    <div class="dog box5" style="display:none;">   
+    <div class="dog box5" id="container5" style="display:block;">   
       <img class="dog_box" src="images/dog_5.jpg" />     
         <div class='box_content'>
         <h1>Is your pet plagued by chronic and recurring ear infections?</h1>
         <h2>
-          <a href='#' class='yes_5'>Yes </a><span>|</span>
-          <a href='#' class='no_5'>No</a>
+          <a href='#container5' class='yes_5'>Yes </a><span>|</span>
+          <a href='#container5' class='no_5'>No</a>
         </h2>   
           <p class="top_space" >4/5<p>      
           <a href='#' class='next_5'><img src='images/next.png' /></a>
         </div>
    </div>
 
-   <div class="dog box6" style="display:none;">   
+   <div class="dog box6" id="container6" style="display:block;">   
       <img class="dog_box" src="images/dog_6.jpg" />     
         <div class='box_content'>
           <h1>Does your PET frequently suffer from diarrhea?</h1>
           <h2>
-            <a href='#' class='yes_6'>Yes </a><span>|</span>
-            <a href='#' class='no_6'>No</a>
+            <a href='#container6' class='yes_6'>Yes </a><span>|</span>
+            <a href='#container6' class='no_6'>No</a>
           </h2>
           <p class="top_space" >5/5<p>      
-          <a href='#' class='next_6'><img src='images/next.png' /></a>
+          <a  class='next_6'><img src='images/finish.png' /></a>
+          <!--<div id="finish" style="background: url('images/finish.png'); width: 145px; height:55px; cursor:pointer;"></div>-->
         </div>
    </div>
 
-   <div class="dog box7" style="display:none;">   <!--   --> 
+   <div class="dog box7" id="container7" style="display:none;">   <!--   --> 
       <img class="dog_box" src="images/dog_1.jpg" />     
         <div class='box_content_results'>
            <p>If your dog displays any of the previous signs, especially both<br>
@@ -570,8 +707,17 @@
           <br><p>Talk to your veterinarian to learn more about food intolerance & allergies, and these signs.</p><br>  
           
           <a href='#' class='next_7'> <img src='images/personalize_list.png' /></a><br><br>
-          <a target="_blank" href="standart_print.pdf" > <img src='images/printer_icon.png' /><p style="display:inline;"> Print standard sign checklist</p> </a>
+          <a id="print_checks" target="_blank" href="" > <img src='images/printer_icon.png' /><p style="display:inline;"> Print standard sign checklist</p> </a>
         </div>
+         <footer>
+          <img class="footer_image" src="images/pack.png" />
+            <a href=""><h5> Learn more about Purina HA Hydrolyzed Formula <img src="images/footer_link.png" /></h5></a>
+            <p style="margin-top:-10px;">To Find a veterinarian please call 1-800-222-VETS (8387) 8am - 4:30pm CT, Monday through Friday</p>
+            <div id="left_footer">
+              <a href="#"><img style="margin-left:20px;float:left;" src="images/footer_fb_share.png" /></a>
+              <a href="#"><img src="images/footer_tw_share.png" /></a>
+            </div>
+        </footer>
    </div>
 
    <div id="personalize_form" class="dog box8" style="display:none;">   <!--   --> 
@@ -585,27 +731,48 @@
             <h3>Personalize Your Pet's sign Checklist</h3>
             <div id="dog_form">            
               <form id="main_form"  action="#" method='get'>
-                <input class="s1" placeholder="Name" type="text" name="name">
-                <input class="s1" placeholder="Breed" type="text" name="breed">
-                <input class="s2" placeholder="Age" type="text" name="age">
-                <input class="s3" placeholder="Symptoms" type="text" name="symptoms"> 
-                <input class="s5" placeholder="Approximate Duration of Symptoms" type="text" name="duration"><br>
-                <input class="s4" placeholder="Current Diet" name="diet">
+                <input id="textfield1" class="s1" placeholder="Name" type="text" name="name">
+                <input id="textfield2" class="s1" placeholder="Breed" type="text" name="breed">
+                <input id="textfield3" class="s2" placeholder="Age" type="text" name="age">
+                <input id="textfield4" class="s3" disabled placeholder="Symptoms" type="text" name="symptoms"> 
+                <input id="textfield5" class="s5" placeholder="Approximate Duration of Symptoms" type="text" name="duration"><br>
+                <input id="textfield6" class="s4" placeholder="Current Diet" name="diet">
                 <input type="hidden" name="printit" value="true">
                 <!--<input type="submit" value="Finish and Print"> --> 
             </div>
               <span class="small_font">This information will not be saved. It will be printed on your personalized sign checklist to take to your veterinarian.</span>
           </div>       
           <br><br>
-          <a href='#' onclick="document.forms[0].submit();return false;" class='next_7'> <img src='images/print_perso_checklist.png' /></a>
+          <!--<a href='#' onclick="document.forms[0].submit();return false;" class='next_7'> <img src='images/print_perso_checklist.png' /></a>-->
+          <span class="submitForm"></span>
           </form>
           <br><br>
           <a target="_blank" href="standart_print.pdf"> <img src='images/printer_icon.png' /><p style="display:inline;"> Print standard sign checklist</p> </a>
         </div>
+         <footer>
+          <img class="footer_image" src="images/pack.png" />
+            <a href=""><h5> Learn more about Purina HA Hydrolyzed Formula <img src="images/footer_link.png" /></h5></a>
+            <p style="margin-top:-10px;">To Find a veterinarian please call 1-800-222-VETS (8387) 8am - 4:30pm CT, Monday through Friday</p>
+            <div id="left_footer">
+              <a href="#"><img style="margin-left:20px;float:left;" src="images/footer_fb_share.png" /></a>
+              <a href="#"><img src="images/footer_tw_share.png" /></a>
+            </div>
+          </footer>
    </div>
 
-    <div id="print_me_standart" style="display:none;">
-          <img src="http://dev1.pwwcolab.com/images/personalize_print_o.jpg" />
+    <div id="print_checks_box" style="display:none;">
+          <img src="images/print_checks.jpg" />
+
+          <div class="checks check_1"><img src="images/check.png" /></div>
+          <div class="checks check_2"><img src="images/check.png" /></div>
+          <div class="checks check_3"><img src="images/check.png" /></div>
+          <div class="checks check_4"><img src="images/check.png" /></div>
+          <div class="checks check_5"><img src="images/check.png" /></div>
+    </div>
+
+
+    <div id="print_me_standard" style="display:none;">
+          <img src="images/personalize_print_o.jpg" />
 
           <div id="profile" >
             <h2 class='p1'></h2>
